@@ -24,8 +24,8 @@ func Tracking(tracking string) TrackData {
 			"` + tracking + `"
 		]
 	}`)
-	var track TrackData      // ประการตัวแปร ที่มี struct เป้ฯ TrackData ปั้น struct ตาม response ที่ api ส่งมาไห้
-	client := &http.Client{} // postman generate มาไห้ เป็น การ ยิง request api
+	var track TrackData // ประการตัวแปร ที่มี struct เป้ฯ TrackData ปั้น struct ตาม response ที่ api ส่งมาไห้
+	client := &http.Client{}
 	req, err := http.NewRequest(method, url, payload)
 
 	if err != nil {
@@ -34,19 +34,19 @@ func Tracking(tracking string) TrackData {
 	}
 	// ใส่ token เข้าไปด้วย ไม่งั้นจะส่งไม่ได้ token นี้เอามาจาก ไปรณ๊ deverlop
 	req.Header.Add("Authorization", "Token "+postToken)
-	req.Header.Add("Content-Type", "application/json") // postman generate มาไห้ เป็น การ ยิง request api
+	req.Header.Add("Content-Type", "application/json")
 
-	res, err := client.Do(req) // postman generate มาไห้ เป็น การ ยิง request api
-	if err != nil {            // postman generate มาไห้ เป็น การ ยิง request api
-		fmt.Println(err) // postman generate มาไห้ เป็น การ ยิง request api
-		return track     // postman generate มาไห้ เป็น การ ยิง request api
+	res, err := client.Do(req)
+	if err != nil {
+		fmt.Println(err)
+		return track
 	}
-	defer res.Body.Close() // postman generate มาไห้ เป็น การ ยิง request api
+	defer res.Body.Close()
 
-	body, err := ioutil.ReadAll(res.Body) // postman generate มาไห้ เป็น การ ยิง request api
-	if err != nil {                       // postman generate มาไห้ เป็น การ ยิง request api
-		fmt.Println(err) // postman generate มาไห้ เป็น การ ยิง request api
-		return track     // postman generate มาไห้ เป็น การ ยิง request api
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		fmt.Println(err)
+		return track
 	}
 
 	err = json.Unmarshal(body, &track) // map ข้อมูลที่ได้จาก api ใส่ตัวแปร ที่ มี struct ตามที่เรากำหนดไว้
